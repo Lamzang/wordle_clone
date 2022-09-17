@@ -1,2 +1,2 @@
 # wordle_clone
-not decorate. just only some code and little word list.
+not decorated. just only some code and little word list.
