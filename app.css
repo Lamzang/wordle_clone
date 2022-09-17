@@ -20,5 +20,8 @@ body {
   background-color: yellow;
 }
 .green {
-  background-color: green;
+  background-color: lightgreen;
+}
+.grey {
+  background-color: grey;
 }

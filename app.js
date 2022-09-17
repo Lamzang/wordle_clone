@@ -4,23 +4,33 @@ const scoreDiv = document.querySelector("#score");
 let counter = 0;
 let line = 0;
 let instanceList = [];
-let ansWord = "check";
-let ansList = ["c", "h", "e", "c", "k"];
+let instanceBtnList = [];
+let ansWord = "";
+let ansList = [];
 let score = 0;
 
+//setup
+function init() {
+  ansWord = words[Math.floor(Math.random() * words.length)];
+  ansList = ansWord.split("");
+}
+
 function handleClick(e) {
+  const target = e.target.dataset.key;
+  //save event target
+  if (target !== undefined && counter < 10) {
+    instanceBtnList.push(e.target);
+  }
+  //push and check
   if (counter < 4) {
-    if (e.target.dataset.key !== undefined) {
-      //text enter in the box
-      pushText(e.target.dataset.key);
+    if (target !== undefined) {
+      pushText(target);
       counter++;
     }
   } else if (counter === 4) {
-    if (e.target.dataset.key !== undefined) {
-      pushText(e.target.dataset.key);
+    if (target !== undefined) {
+      pushText(target);
       checkAns(ansList);
-      line += 5;
-      counter = 0;
     }
   }
 }
@@ -28,26 +38,45 @@ function handleClick(e) {
 function pushText(text) {
   const emptyBox = document.querySelector(".empty");
   emptyBox.innerText = text;
-  text = text.toLowerCase();
-  instanceList.push(text);
+  instanceList.push(text.toLowerCase());
   emptyBox.classList.remove("empty");
 }
 
 function checkAns(ans) {
   for (let i = 0; i < 5; i++) {
+    //yellow
     if (ans.includes(instanceList[i])) {
       boxAll[i + line].classList.add("yellow");
+      instanceBtnList[i].classList.add("yellow");
+    } else {
+      instanceBtnList[i].classList.add("grey");
     }
+    //green
     if (ans[i] === instanceList[i]) {
       boxAll[i + line].classList.add("green");
+      instanceBtnList[i].classList.add("green");
       score++;
     }
   }
-  if (score === 5) {
-    scoreDiv.innerText = `  Today word is ${ansWord}`;
-  }
+
+  //clear variable
+  counter = 0;
   instanceList = [];
+  instanceBtnList = [];
+
+  //check result
+  if (score === 5) {
+    scoreDiv.innerText = `==>The word is "${ansWord}" and you Win!`;
+    counter = 15;
+  } else if (line === 25) {
+    scoreDiv.innerText = `==>The word is "${ansWord}" and you lose!`;
+    counter = 15;
+  }
+
+  //clear result
+  line += 5;
   score = 0;
 }
 
+init();
 document.addEventListener("click", handleClick);
