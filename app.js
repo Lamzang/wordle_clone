@@ -13,6 +13,7 @@ let score = 0;
 function init() {
   ansWord = words[Math.floor(Math.random() * words.length)];
   ansList = ansWord.split("");
+  console.log(ansWord);
 }
 
 function handleClick(e) {
