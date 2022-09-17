@@ -1,0 +1,24 @@
+body {
+  display: flex;
+}
+
+.box {
+  display: flex;
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid black;
+}
+.wordBox {
+  display: grid;
+  grid-template-columns: repeat(5, 4em);
+  grid-template-rows: repeat(6, 4em);
+  gap: 0.25em;
+  margin-bottom: 1em;
+}
+.yellow {
+  background-color: yellow;
+}
+.green {
+  background-color: green;
+}
